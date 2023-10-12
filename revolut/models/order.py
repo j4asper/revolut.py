@@ -6,7 +6,7 @@ from .payment import Payment
 from .merchant_order import MerchantOrder
 from .upcoming_payment import UpcomingPayment
 from datetime import datetime, timedelta
-from .enums import OrderType, State, CaptureMode
+from .enums import OrderType, State, CaptureMode, Currency
 
 
 class OrderModel(BaseModel):
@@ -22,8 +22,8 @@ class OrderModel(BaseModel):
     amount: int
     outstanding_amount: Optional[int]
     refunded_amount: Optional[int]
-    currency: str
-    settlement_currency: Optional[str]
+    currency: Currency
+    settlement_currency: Optional[Currency]
     customer: Optional[CustomerModel]
     shipping_address: Optional[Address]
     payments: list[Payment]

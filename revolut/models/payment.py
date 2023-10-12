@@ -5,7 +5,7 @@ from .payment_method import PaymentMethod
 from .fee import Fee
 from .authentication_challenge import AuthenticationChallenge
 from .address import Address
-from .enums import State, DeclineReason, RiskLevel
+from .enums import State, DeclineReason, RiskLevel, Currency
 
 
 class Payment(BaseModel):
@@ -17,9 +17,9 @@ class Payment(BaseModel):
     updated_at: datetime
     token: Optional[str]
     amount: int
-    currency: str
+    currency: Currency
     settled_amount: Optional[int]
-    settled_currency: Optional[str]
+    settled_currency: Optional[Currency]
     payment_method: Optional[PaymentMethod]
     authentication_challenge: Optional[AuthenticationChallenge]
     billing_address: Optional[Address]
