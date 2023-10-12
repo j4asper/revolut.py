@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class Environment(Enum):
-    PRODUCTION = 1
-    SANDBOX = 2
+    PRODUCTION = "merchant"
+    SANDBOX = "sandbox-merchant"
 
 
 class OrderType(Enum):
