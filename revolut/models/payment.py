@@ -23,11 +23,11 @@ class Payment(BaseModel):
     updated_at: datetime
     token: Optional[str]
     amount: int
-    currency: Currency
+    currency: Optional[Currency]
     settled_amount: Optional[int]
     settled_currency: Optional[Currency]
     payment_method: Optional[PaymentMethod]
     authentication_challenge: Optional[AuthenticationChallenge]
     billing_address: Optional[Address]
     risk_level = Optional[RiskLevel]
-    fees: list[Fee]
+    fees: Optional[list[Fee]]
