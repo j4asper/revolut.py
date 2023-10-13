@@ -5,7 +5,13 @@ from .payment_method import PaymentMethod
 from .fee import Fee
 from .authentication_challenge import AuthenticationChallenge
 from .address import Address
-from .enums import State, DeclineReason, RiskLevel, Currency
+
+from .enums import (
+    State,
+    DeclineReason,
+    RiskLevel,
+    Currency
+)
 
 
 class Payment(BaseModel):

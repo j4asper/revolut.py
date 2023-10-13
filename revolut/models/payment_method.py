@@ -1,7 +1,12 @@
 from pydantic import BaseModel
 from typing import Optional
 from .checks import Checks
-from .enums import PaymentType, CardBrand, Funding
+
+from .enums import (
+    PaymentType,
+    CardBrand,
+    Funding
+)
 
 
 class PaymentMethod(BaseModel):

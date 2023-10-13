@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional
-from .enums import FeeType, Currency
+
+from .enums import (
+    FeeType,
+    Currency
+)
 
 
 class Fee(BaseModel):
