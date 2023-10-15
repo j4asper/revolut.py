@@ -1,5 +1,5 @@
 # Revolut Merchant API Wrapper
-Simple Revolut Merchant API Wrapper
+Simple Revolut Merchant API Wrapper written in Python 3. This API Wrapper will make it easier to interact with the [Merchant API](https://developer.revolut.com/docs/accept-payments), provided by [Revolut](https://www.revolut.com/business/).
 
 ## Table of Contents
 
