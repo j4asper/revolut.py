@@ -3,10 +3,29 @@ Simple Revolut Merchant API Wrapper written in Python 3. This API Wrapper will m
 
 ## Table of Contents
 
+- [Installation](#installation)
+  - [Install with PIP](#install-with-pip)
+  - [Install from source](#install-from-source)
 - [Initial Setup](#initial-setup)
 - [Sandbox Environment](#sandbox-environment)
 - [Current Goal](#current-goal)
   - [Checklist](#checklist)
+
+## Installation
+
+### Install with PIP
+
+```console
+python -m pip install revolut.py
+```
+
+### Install from source
+
+This installation may or may not work all the time. If it doesn't, use the pip installation as a fallback.
+
+```console
+python -m pip install git+https://github.com/j4asper/revolut.py
+```
 
 ## Initial Setup
 
