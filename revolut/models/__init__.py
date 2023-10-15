@@ -9,4 +9,4 @@ from .merchant_order import MerchantOrder
 from .payment import Payment
 from .payment_method import PaymentMethod
 from .three_ds import ThreeDS
-from upcoming_payment import UpcomingPayment
+from .upcoming_payment import UpcomingPayment
