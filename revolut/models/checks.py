@@ -5,8 +5,8 @@ from .enums import VerificationResult
 
 
 class Checks(BaseModel):
-    three_ds: Optional[ThreeDS]
-    cvv_verification: Optional[VerificationResult]
-    address: Optional[VerificationResult]
-    postcode: Optional[VerificationResult]
-    cardholder: Optional[VerificationResult]
+    three_ds: Optional[ThreeDS] = None
+    cvv_verification: Optional[VerificationResult] = None
+    address: Optional[VerificationResult] = None
+    postcode: Optional[VerificationResult] = None
+    cardholder: Optional[VerificationResult] = None

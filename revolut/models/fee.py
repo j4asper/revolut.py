@@ -8,6 +8,6 @@ from .enums import (
 
 
 class Fee(BaseModel):
-    type: Optional[FeeType]
-    amount: Optional[int]
-    currency: Optional[Currency]
+    type: Optional[FeeType] = None
+    amount: Optional[int] = None
+    currency: Optional[Currency] = None

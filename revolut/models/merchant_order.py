@@ -3,5 +3,5 @@ from typing import Optional
 
 
 class MerchantOrder(BaseModel):
-    url: Optional[str]
-    reference: Optional[str]
+    url: Optional[str] = None
+    reference: Optional[str] = None

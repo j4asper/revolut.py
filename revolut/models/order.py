@@ -22,24 +22,24 @@ from .enums import (
 class OrderModel(BaseModel):
     amount: int
     currency: Currency
-    id: Optional[str]
-    token: Optional[str]
-    type: Optional[OrderType]
-    state: Optional[State]
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
-    description: Optional[str]
-    capture_mode: Optional[CaptureMode]
-    cancel_authorised_after: Optional[timedelta]
-    outstanding_amount: Optional[int]
-    refunded_amount: Optional[int]
-    settlement_currency: Optional[Currency]
-    customer: Optional[CustomerModel]
-    shipping_address: Optional[Address]
-    payments: Optional[list[Payment]]
-    location_id: Optional[str]
-    metadata: Optional[dict]
-    industry_data: Optional[dict]
-    merchant_order_data: Optional[MerchantOrder]
-    upcoming_payment_data: Optional[UpcomingPayment]
-    checkout_url: Optional[str]
+    id: Optional[str] = None
+    token: Optional[str] = None
+    type: Optional[OrderType] = None
+    state: Optional[State] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    description: Optional[str] = None
+    capture_mode: Optional[CaptureMode] = None
+    cancel_authorised_after: Optional[timedelta] = None
+    outstanding_amount: Optional[int] = None
+    refunded_amount: Optional[int] = None
+    settlement_currency: Optional[Currency] = None
+    customer: Optional[CustomerModel] = None
+    shipping_address: Optional[Address] = None
+    payments: Optional[list[Payment]] = None
+    location_id: Optional[str] = None
+    metadata: Optional[dict] = None
+    industry_data: Optional[dict] = None
+    merchant_order_data: Optional[MerchantOrder] = None
+    upcoming_payment_data: Optional[UpcomingPayment] = None
+    checkout_url: Optional[str] = None

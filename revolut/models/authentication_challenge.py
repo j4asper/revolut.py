@@ -5,6 +5,6 @@ from typing import Optional
 
 class AuthenticationChallenge(BaseModel):
     type: AuthenticationChallengeType
-    fingerprint_url: Optional[str]
-    fingerprint_data: Optional[dict]
-    acs_url: Optional[str]
+    fingerprint_url: Optional[str] = None
+    fingerprint_data: Optional[dict] = None
+    acs_url: Optional[str] = None
