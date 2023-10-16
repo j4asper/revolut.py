@@ -16,6 +16,11 @@ class OrderType(Enum):
     CREDIT_REIMBURSEMENT = "credit_reimbursement"
 
 
+class Initiator(Enum):
+    CUSTOMER = "customer"
+    MERCHANT = "merchant"
+
+
 class CaptureMode(Enum):
     AUTOMATIC = "automatic"
     MANUAL = "manual"
