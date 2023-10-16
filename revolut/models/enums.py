@@ -3,11 +3,13 @@ from enum import Enum
 
 
 class Environment(Enum):
+    """The API Environments that are available."""
     PRODUCTION = "merchant"
     SANDBOX = "sandbox-merchant"
 
 
 class OrderType(Enum):
+    """The type of order object."""
     PAYMENT = "payment"
     PAYMENT_REQUEST = "payment_request"
     REFUND = "refund"
@@ -17,42 +19,50 @@ class OrderType(Enum):
 
 
 class EnvironmentType(Enum):
+    """Type of environment where a payment was made."""
     BROWSER = "browser"
 
 
 class Initiator(Enum):
+    """Indicates who is allowed to initiate the payment."""
     CUSTOMER = "customer"
     MERCHANT = "merchant"
 
 
 class CaptureMode(Enum):
+    """The capture mode of an order."""
     AUTOMATIC = "automatic"
     MANUAL = "manual"
 
 
 class AuthenticationChallengeType(Enum):
+    """Type of the authentication challenge the payment triggers."""
     THREE_DS = "three_ds"
     THREE_DS_FINGERPRINT = "three_ds_fingerprint"
 
 
 class CardBrand(Enum):
+    """The credit card brands available."""
     VISA = "visa"
     MASTERCARD = "mastercard"
 
 
 class Funding(Enum):
+    """The type of card funding."""
     CREDIT = "credit"
     DEBIT = "debit"
     PREPAID = "prepaid"
 
 
 class PaymentType(Enum):
+    """The type of payment method used to pay for an order."""
     CARD = "card"
     REVOLUT_PAY_CARD = "revolut_pay_card"
     REVOLUT_PAY_ACCOUNT = "revolut_pay_account"
 
 
 class VerificationResult(Enum):
+    """The result of a verification."""
     MATCH = "match"
     NOT_MATCH = "not_match"
     N_A = "n_a"
@@ -62,16 +72,19 @@ class VerificationResult(Enum):
 
 
 class FeeType(Enum):
+    """The type of order fee."""
     FX = "fx"
     ACQUIRING = "acquiring"
 
 
 class RiskLevel(Enum):
+    """The risk level of a card."""
     LOW = "low"
     HIGH = "high"
 
 
 class State(Enum):
+    """The status of a payment or an order."""
     PENDING = "pending"
     AUTHENTICATION_CHALLENGE = "authentication_challenge"
     AUTHENTICATION_VERIFIED = "authentication_verified"
@@ -98,6 +111,7 @@ class State(Enum):
 
 
 class DeclineReason(Enum):
+    """The reason for a failed or declined payment."""
     HIGH_RISK = "high_risk"
     CARDHOLDER_NAME_MISSING = "cardholder_name_missing"
     UNKNOWN_CARD = "unknown_card"
