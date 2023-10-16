@@ -18,6 +18,12 @@ class OrderType(Enum):
     CREDIT_REIMBURSEMENT = "credit_reimbursement"
 
 
+class EnforceChallenge(Enum):
+    """The enforce challenge mode."""
+    AUTOMATIC = "automatic"
+    FORCED = "forced"
+
+
 class EnvironmentType(Enum):
     """Type of environment where a payment was made."""
     BROWSER = "browser"
