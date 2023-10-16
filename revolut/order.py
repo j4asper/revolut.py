@@ -3,6 +3,7 @@ from .models import OrderModel, State
 from typing import Optional
 from datetime import datetime
 from requests import Session
+from aiohttp import ClientSession
 
 
 class Order:
@@ -25,14 +26,30 @@ class Order:
 
         if response.status_code == 201:
             return OrderModel(**response.json())
+        elif response.status_code == 400:
+            raise Exception("Invalid OrderModel provided")
         elif response.status_code == 401:
             raise Exception("Invalid API Key provided")
-
-
+        else:
+            raise Exception("Unknown error occurred")
 
     async def create_async(self, order: OrderModel) -> OrderModel:
         """https://developer.revolut.com/docs/merchant/create-order"""
-        pass
+        if not order.amount or not order.currency:
+            raise AttributeError("OrderModel missing attributes Amount and/or Currency")
+
+        async with ClientSession(headers=self._client._headers) as session:
+            response = await session.post(url=self._base_url, data=order.model_dump_json(exclude_unset=True))
+            json_data = await response.json()
+
+        if response.status == 201:
+            return OrderModel(**json_data)
+        elif response.status == 400:
+            raise Exception("Invalid OrderModel provided")
+        elif response.status == 401:
+            raise Exception("Invalid API Key provided")
+        else:
+            raise Exception("Unknown error occurred")
 
     def get(self, order_id: str) -> OrderModel:
         """https://developer.revolut.com/docs/merchant/retrieve-order"""
