@@ -47,13 +47,13 @@ The goal of this API wrapper is to cover [Revoluts Merchant API Implementation C
 
 **Customer management:**
 
-- [ ] [Create a customer](https://github.com/j4asper/revolut.py/issues/1)
+- [ ] [Create a customer](https://github.com/j4asper/revolut.py/issues/15)
 - [ ] [Update customer details](https://github.com/j4asper/revolut.py/issues/2)
 - [ ] [Delete customer](https://github.com/j4asper/revolut.py/issues/3)
 
 **Order management:**
 
-- [ ] [Create and pay for order](https://github.com/j4asper/revolut.py/issues/4)
+- [x] [Create and pay for order](https://github.com/j4asper/revolut.py/issues/4)
 - [ ] [Capture order later](https://github.com/j4asper/revolut.py/issues/5)
 - [ ] [Cancel order (without capture later)](https://github.com/j4asper/revolut.py/issues/6)
 - [ ] [Cancel uncaptured order](https://github.com/j4asper/revolut.py/issues/7)
