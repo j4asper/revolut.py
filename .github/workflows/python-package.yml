@@ -6,8 +6,15 @@ name: Python package
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '.gitignore'
+      - '.github/**'
+      - 'README.md'
+      - 'pyproject.toml'
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron:  '0 3 * * *'
 
 jobs:
   build:
@@ -16,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v3
@@ -28,7 +35,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python -m pip install .
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
