@@ -6,13 +6,10 @@ class Client:
         self._secret_key = secret_key
         self._environment = environment
         self._api_version = "2023-09-01"
-        self.base_url = f"https://{environment.value}.revolut.com/api/"
-
-    def _get_headers(self):
-        return {
+        self._base_url = f"https://{environment.value}.revolut.com/api/"
+        self._headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Revolut-Api-Version": self._api_version,
-            "Authorization": f"Bearer {self._secret_key}"
+            "Authorization": f"Bearer {secret_key}"
         }
-

@@ -1,18 +1,36 @@
 from .client import Client
-from .models import Currency, OrderModel, State
+from .models import OrderModel, State
 from typing import Optional
 from datetime import datetime
+from requests import Session
 
 
 class Order:
     def __init__(self, client: Client):
         self._client = client
+        self._base_url = client._base_url + "orders"
 
-    def create(self, amount: int, currency: Currency) -> OrderModel:
-        """https://developer.revolut.com/docs/merchant/create-order"""
-        pass
+    def create(self, order: OrderModel) -> OrderModel:
+        """
+        amount and currency fields in the OrderModel are required.
 
-    async def create_async(self, amount: int, currency: Currency) -> OrderModel:
+        https://developer.revolut.com/docs/merchant/create-order
+        """
+        if not order.amount or not order.currency:
+            raise AttributeError("OrderModel missing attributes Amount and/or Currency")
+
+        with Session() as session:
+            session.headers = self._client._headers
+            response = session.post(url=self._base_url, data=order.model_dump_json(exclude_unset=True))
+
+        if response.status_code == 201:
+            return OrderModel(**response.json())
+        elif response.status_code == 401:
+            raise Exception("Invalid API Key provided")
+
+
+
+    async def create_async(self, order: OrderModel) -> OrderModel:
         """https://developer.revolut.com/docs/merchant/create-order"""
         pass
 
