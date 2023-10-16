@@ -9,7 +9,16 @@ from aiohttp import ClientSession
 class Order:
     def __init__(self, client: Client):
         self._client = client
-        self._base_url = client._base_url + "orders"
+
+    def _handle_order_create_data(self, status_code: int, data: dict = None):
+        if status_code == 201:
+            return OrderModel(**data)
+        elif status_code == 400:
+            raise Exception("Invalid OrderModel provided")
+        elif status_code == 401:
+            raise Exception("Invalid API Key provided")
+        else:
+            raise Exception("Unknown error occurred")
 
     def create(self, order: OrderModel) -> OrderModel:
         """
@@ -22,42 +31,55 @@ class Order:
 
         with Session() as session:
             session.headers = self._client._headers
-            response = session.post(url=self._base_url, data=order.model_dump_json(exclude_unset=True))
+            response = session.post(url=self._client._base_url + "orders", data=order.model_dump_json(exclude_unset=True))
 
-        if response.status_code == 201:
-            return OrderModel(**response.json())
-        elif response.status_code == 400:
-            raise Exception("Invalid OrderModel provided")
-        elif response.status_code == 401:
-            raise Exception("Invalid API Key provided")
-        else:
-            raise Exception("Unknown error occurred")
+        order_model = self._handle_order_create_data(response.status_code, response.json())
+        return order_model
 
     async def create_async(self, order: OrderModel) -> OrderModel:
-        """https://developer.revolut.com/docs/merchant/create-order"""
+        """
+        amount and currency fields in the OrderModel are required.
+
+        https://developer.revolut.com/docs/merchant/create-order
+        """
         if not order.amount or not order.currency:
             raise AttributeError("OrderModel missing attributes Amount and/or Currency")
 
         async with ClientSession(headers=self._client._headers) as session:
-            response = await session.post(url=self._base_url, data=order.model_dump_json(exclude_unset=True))
+            response = await session.post(url=self._client._base_url + "orders", data=order.model_dump_json(exclude_unset=True))
             json_data = await response.json()
 
-        if response.status == 201:
-            return OrderModel(**json_data)
-        elif response.status == 400:
-            raise Exception("Invalid OrderModel provided")
-        elif response.status == 401:
+        order_model = self._handle_order_create_data(response.status, json_data)
+        return order_model
+
+    def _handle_order_get_data(self, status_code: int, data: dict = None):
+        if status_code == 200:
+            return OrderModel(**data)
+        elif status_code == 404:
+            return None
+        elif status_code == 401:
             raise Exception("Invalid API Key provided")
         else:
             raise Exception("Unknown error occurred")
 
-    def get(self, order_id: str) -> OrderModel:
+    def get(self, order_id: str) -> Optional[OrderModel]:
         """https://developer.revolut.com/docs/merchant/retrieve-order"""
-        pass
+        with Session() as session:
+            session.headers = self._client._headers
+            response = session.get(url=self._client._base_url + f"orders/{order_id}")
 
-    async def get_async(self, order_id: str) -> OrderModel:
+        order_model = self._handle_order_get_data(response.status_code, response.json())
+        return order_model
+
+
+    async def get_async(self, order_id: str) -> Optional[OrderModel]:
         """https://developer.revolut.com/docs/merchant/retrieve-order"""
-        pass
+        async with ClientSession(headers=self._client._headers) as session:
+            response = await session.get(url=self._client._base_url + f"orders/{order_id}")
+            json_data = await response.json()
+
+        order_model = self._handle_order_get_data(response.status, json_data)
+        return order_model
 
     def update(self, order_id: str, updated_order: OrderModel) -> OrderModel:
         """https://developer.revolut.com/docs/merchant/update-order"""
