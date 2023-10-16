@@ -15,7 +15,8 @@ from .enums import (
     OrderType,
     State,
     CaptureMode,
-    Currency
+    Currency,
+    EnforceChallenge
 )
 
 
@@ -30,6 +31,7 @@ class OrderModel(BaseModel):
     updated_at: Optional[datetime] = None
     description: Optional[str] = None
     capture_mode: Optional[CaptureMode] = None
+    enforce_challenge: Optional[EnforceChallenge] = None
     cancel_authorised_after: Optional[timedelta] = None
     outstanding_amount: Optional[int] = None
     refunded_amount: Optional[int] = None
