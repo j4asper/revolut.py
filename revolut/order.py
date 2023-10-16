@@ -114,3 +114,39 @@ class Order:
                              ) -> list[OrderModel]:
         """https://developer.revolut.com/docs/merchant/retrieve-order-list"""
         pass
+
+    def capture_order(self, order_id: str) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/capture-order"""
+        pass
+
+    def capture_order_async(self, order_id: str) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/capture-order"""
+        pass
+
+    def cancel(self, order_id: str) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/cancel-order"""
+        pass
+
+    def cancel_async(self, order_id: str) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/cancel-order"""
+        pass
+
+    def refund(self,
+               order_id: str,
+               amount: int,
+               description: str = None,
+               order_ext_ref: str = None,
+               metadata: dict = None
+               ) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/cancel-order"""
+        pass
+
+    def refund_async(self,
+                     order_id: str,
+                     amount: int,
+                     description: str = None,
+                     order_ext_ref: str = None,
+                     metadata: dict = None
+                     ) -> OrderModel:
+        """https://developer.revolut.com/docs/merchant/cancel-order"""
+        pass
