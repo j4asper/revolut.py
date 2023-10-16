@@ -16,6 +16,10 @@ class OrderType(Enum):
     CREDIT_REIMBURSEMENT = "credit_reimbursement"
 
 
+class EnvironmentType(Enum):
+    BROWSER = "browser"
+
+
 class Initiator(Enum):
     CUSTOMER = "customer"
     MERCHANT = "merchant"
