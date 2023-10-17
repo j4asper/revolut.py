@@ -123,7 +123,7 @@ class Order:
         Get a list of orders
         https://developer.revolut.com/docs/merchant/retrieve-order-list
         """
-        filter = PartialOrderModel(
+        filter = OrderFilter(
             created_before=created_before,
             from_created_date=from_created_date,
             to_created_date=to_created_date,
@@ -156,7 +156,7 @@ class Order:
         Get a list of orders
         https://developer.revolut.com/docs/merchant/retrieve-order-list
         """
-        filter = PartialOrderModel(
+        filter = OrderFilter(
             created_before=created_before,
             from_created_date=from_created_date,
             to_created_date=to_created_date,
