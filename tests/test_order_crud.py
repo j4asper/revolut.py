@@ -40,10 +40,14 @@ def test_order_get_async():
     assert order.checkout_url == test_order_created.checkout_url
 
 
+def test_order_get_list():
+    orders = ORDER_CLIENT.get_list()
+    assert len(orders) > 1
+
+def test_order_get_list_async():
+    orders = LOOP.run_until_complete(ORDER_CLIENT.get_list_async())
+    assert len(orders) > 1
+
+
 def test_order_update():
     pass
-
-
-def test_order_get_list():
-    pass
-
