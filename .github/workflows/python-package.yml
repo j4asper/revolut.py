@@ -10,7 +10,6 @@ on:
       - '.gitignore'
       - '.github/**'
       - 'README.md'
-      - 'pyproject.toml'
   pull_request:
     branches: [ "main" ]
   schedule:
