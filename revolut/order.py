@@ -1,5 +1,5 @@
 from .client import Client
-from .models import OrderModel, State
+from .models import OrderModel, State, PartialOrderModel, OrderFilter
 from typing import Optional
 from datetime import datetime
 from requests import Session
@@ -31,7 +31,8 @@ class Order:
 
         with Session() as session:
             session.headers = self._client._headers
-            response = session.post(url=self._client._base_url + "orders", data=order.model_dump_json(exclude_unset=True))
+            response = session.post(url=self._client._base_url + "orders",
+                                    data=order.model_dump_json(exclude_unset=True))
 
         order_model = self._handle_order_create_data(response.status_code, response.json())
         return order_model
@@ -46,7 +47,8 @@ class Order:
             raise AttributeError("OrderModel missing attributes Amount and/or Currency")
 
         async with ClientSession(headers=self._client._headers) as session:
-            response = await session.post(url=self._client._base_url + "orders", data=order.model_dump_json(exclude_unset=True))
+            response = await session.post(url=self._client._base_url + "orders",
+                                          data=order.model_dump_json(exclude_unset=True))
             json_data = await response.json()
 
         order_model = self._handle_order_create_data(response.status, json_data)
@@ -71,7 +73,6 @@ class Order:
         order_model = self._handle_order_get_data(response.status_code, response.json())
         return order_model
 
-
     async def get_async(self, order_id: str) -> Optional[OrderModel]:
         """https://developer.revolut.com/docs/merchant/retrieve-order"""
         async with ClientSession(headers=self._client._headers) as session:
@@ -82,38 +83,96 @@ class Order:
         return order_model
 
     def update(self, order_id: str, updated_order: OrderModel) -> OrderModel:
-        """https://developer.revolut.com/docs/merchant/update-order"""
+        """
+        You can only update certain values, if the state of an order matches the ones below. Please read the official docs below.
+        https://developer.revolut.com/docs/merchant/update-order
+        """
         pass
 
     async def update_async(self, order_id: str, updated_order: OrderModel) -> OrderModel:
-        """https://developer.revolut.com/docs/merchant/update-order"""
+        """
+        You can only update certain values, if the state of an order matches the ones below. Please read the official docs below.
+        https://developer.revolut.com/docs/merchant/update-order
+        """
         pass
+
+    def _handle_get_list_data(self, status_code: int, data: dict = None):
+        if status_code == 200:
+            orders = []
+            for order in data:
+                orders.append(PartialOrderModel(**order))
+            return orders
+        elif status_code == 404:
+            return None
+        elif status_code == 401:
+            raise Exception("Invalid API Key provided")
+        else:
+            raise Exception("Unknown error occurred")
 
     def get_list(self,
-                 created_before: Optional[datetime],
-                 from_created_date: Optional[datetime],
-                 to_created_date: Optional[datetime],
-                 customer_id: Optional[str],
-                 email: Optional[str],
-                 merchant_order_ext_ref: Optional[str],
-                 state: Optional[State],
+                 created_before: Optional[datetime] = None,
+                 from_created_date: Optional[datetime] = None,
+                 to_created_date: Optional[datetime] = None,
+                 customer_id: Optional[str] = None,
+                 email: Optional[str] = None,
+                 merchant_order_ext_ref: Optional[str] = None,
+                 state: Optional[State] = None,
                  limit=100
-                 ) -> list[OrderModel]:
-        """https://developer.revolut.com/docs/merchant/retrieve-order-list"""
-        pass
+                 ) -> list[PartialOrderModel]:
+        """
+        Get a list of orders
+        https://developer.revolut.com/docs/merchant/retrieve-order-list
+        """
+        filter = PartialOrderModel(
+            created_before=created_before,
+            from_created_date=from_created_date,
+            to_created_date=to_created_date,
+            customer_id=customer_id,
+            email=email,
+            merchant_order_ext_ref=merchant_order_ext_ref,
+            state=state,
+            limit=limit
+        )
+
+        with Session() as session:
+            session.headers = self._client._headers
+            response = session.get(url=self._client._base_url + f"1.0/orders", params=filter.model_dump(exclude_none=True))
+
+        order_list = self._handle_get_list_data(response.status_code, response.json())
+        return order_list
+
 
     async def get_list_async(self,
-                             created_before: Optional[datetime],
-                             from_created_date: Optional[datetime],
-                             to_created_date: Optional[datetime],
-                             customer_id: Optional[str],
-                             email: Optional[str],
-                             merchant_order_ext_ref: Optional[str],
-                             state: Optional[State],
+                             created_before: Optional[datetime] = None,
+                             from_created_date: Optional[datetime] = None,
+                             to_created_date: Optional[datetime] = None,
+                             customer_id: Optional[str] = None,
+                             email: Optional[str] = None,
+                             merchant_order_ext_ref: Optional[str] = None,
+                             state: Optional[State] = None,
                              limit=100
-                             ) -> list[OrderModel]:
-        """https://developer.revolut.com/docs/merchant/retrieve-order-list"""
-        pass
+                             ) -> list[PartialOrderModel]:
+        """
+        Get a list of orders
+        https://developer.revolut.com/docs/merchant/retrieve-order-list
+        """
+        filter = PartialOrderModel(
+            created_before=created_before,
+            from_created_date=from_created_date,
+            to_created_date=to_created_date,
+            customer_id=customer_id,
+            email=email,
+            merchant_order_ext_ref=merchant_order_ext_ref,
+            state=state,
+            limit=limit
+        )
+
+        async with ClientSession(headers=self._client._headers) as session:
+            response = await session.get(url=self._client._base_url + f"1.0/orders", params=filter.model_dump(exclude_none=True))
+            json_data = await response.json()
+
+        order_list = self._handle_get_list_data(response.status, json_data)
+        return order_list
 
     def capture_order(self, order_id: str) -> OrderModel:
         """https://developer.revolut.com/docs/merchant/capture-order"""
