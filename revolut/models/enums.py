@@ -1,14 +1,14 @@
 # Credits to ChatGPT for making a lot of the enums here
-from enum import Enum
+from enum import StrEnum
 
 
-class Environment(Enum):
+class Environment(StrEnum):
     """The API Environments that are available."""
     PRODUCTION = "merchant"
     SANDBOX = "sandbox-merchant"
 
 
-class OrderType(Enum):
+class OrderType(StrEnum):
     """The type of order object."""
     PAYMENT = "payment"
     PAYMENT_REQUEST = "payment_request"
@@ -17,57 +17,73 @@ class OrderType(Enum):
     CHARGEBACK_REVERSAL = "chargeback_reversal"
     CREDIT_REIMBURSEMENT = "credit_reimbursement"
 
+    @classmethod
+    def _missing_(cls, value):
+        value = value.lower()
+        for member in cls:
+            if member.lower() == value:
+                return member
+        return None
 
-class EnforceChallenge(Enum):
+
+class EnforceChallenge(StrEnum):
     """The enforce challenge mode."""
     AUTOMATIC = "automatic"
     FORCED = "forced"
 
 
-class EnvironmentType(Enum):
+class EnvironmentType(StrEnum):
     """Type of environment where a payment was made."""
     BROWSER = "browser"
 
 
-class Initiator(Enum):
+class Initiator(StrEnum):
     """Indicates who is allowed to initiate the payment."""
     CUSTOMER = "customer"
     MERCHANT = "merchant"
 
 
-class CaptureMode(Enum):
+class CaptureMode(StrEnum):
     """The capture mode of an order."""
     AUTOMATIC = "automatic"
     MANUAL = "manual"
 
+    @classmethod
+    def _missing_(cls, value):
+        value = value.lower()
+        for member in cls:
+            if member.lower() == value:
+                return member
+        return None
 
-class AuthenticationChallengeType(Enum):
+
+class AuthenticationChallengeType(StrEnum):
     """Type of the authentication challenge the payment triggers."""
     THREE_DS = "three_ds"
     THREE_DS_FINGERPRINT = "three_ds_fingerprint"
 
 
-class CardBrand(Enum):
+class CardBrand(StrEnum):
     """The credit card brands available."""
     VISA = "visa"
     MASTERCARD = "mastercard"
 
 
-class Funding(Enum):
+class Funding(StrEnum):
     """The type of card funding."""
     CREDIT = "credit"
     DEBIT = "debit"
     PREPAID = "prepaid"
 
 
-class PaymentType(Enum):
+class PaymentType(StrEnum):
     """The type of payment method used to pay for an order."""
     CARD = "card"
     REVOLUT_PAY_CARD = "revolut_pay_card"
     REVOLUT_PAY_ACCOUNT = "revolut_pay_account"
 
 
-class VerificationResult(Enum):
+class VerificationResult(StrEnum):
     """The result of a verification."""
     MATCH = "match"
     NOT_MATCH = "not_match"
@@ -77,19 +93,19 @@ class VerificationResult(Enum):
     NOT_PROCESSED = "not_processed"
 
 
-class FeeType(Enum):
+class FeeType(StrEnum):
     """The type of order fee."""
     FX = "fx"
     ACQUIRING = "acquiring"
 
 
-class RiskLevel(Enum):
+class RiskLevel(StrEnum):
     """The risk level of a card."""
     LOW = "low"
     HIGH = "high"
 
 
-class State(Enum):
+class State(StrEnum):
     """The status of a payment or an order."""
     PENDING = "pending"
     AUTHENTICATION_CHALLENGE = "authentication_challenge"
@@ -115,8 +131,16 @@ class State(Enum):
     VERIFIED = "verified"
     CHALLENGE = "challenge"
 
+    @classmethod
+    def _missing_(cls, value):
+        value = value.lower()
+        for member in cls:
+            if member.lower() == value:
+                return member
+        return None
 
-class DeclineReason(Enum):
+
+class DeclineReason(StrEnum):
     """The reason for a failed or declined payment."""
     HIGH_RISK = "high_risk"
     CARDHOLDER_NAME_MISSING = "cardholder_name_missing"
@@ -147,7 +171,7 @@ class DeclineReason(Enum):
     TECHNICAL_ERROR = "technical_error"
 
 
-class Currency(Enum):
+class Currency(StrEnum):
     """ISO 4217 Currencies
     https://en.wikipedia.org/wiki/ISO_4217
     """
