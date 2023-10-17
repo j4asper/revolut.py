@@ -12,7 +12,7 @@ from .enums import (
 )
 
 
-class OrderModel(BaseModel):
+class PartialOrderModel(BaseModel):
     id: Optional[str] = None
     type: Optional[OrderType] = None
     order_amount: Optional[OrderAmount] = None
