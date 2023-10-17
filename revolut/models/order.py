@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from .customer import CustomerModel
 from .address import Address
 from .payment import Payment
@@ -38,7 +38,7 @@ class OrderModel(BaseModel):
     settlement_currency: Optional[Currency] = None
     customer: Optional[CustomerModel] = None
     shipping_address: Optional[Address] = None
-    payments: Optional[list[Payment]] = None
+    payments: Optional[List[Payment]] = None
     location_id: Optional[str] = None
     metadata: Optional[dict] = None
     industry_data: Optional[dict] = None
