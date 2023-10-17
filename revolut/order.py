@@ -1,6 +1,6 @@
 from .client import Client
 from .models import OrderModel, State, PartialOrderModel, OrderFilter
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from requests import Session
 from aiohttp import ClientSession
@@ -118,7 +118,7 @@ class Order:
                  merchant_order_ext_ref: Optional[str] = None,
                  state: Optional[State] = None,
                  limit=100
-                 ) -> list[PartialOrderModel]:
+                 ) -> List[PartialOrderModel]:
         """
         Get a list of orders
         https://developer.revolut.com/docs/merchant/retrieve-order-list
@@ -151,7 +151,7 @@ class Order:
                              merchant_order_ext_ref: Optional[str] = None,
                              state: Optional[State] = None,
                              limit=100
-                             ) -> list[PartialOrderModel]:
+                             ) -> List[PartialOrderModel]:
         """
         Get a list of orders
         https://developer.revolut.com/docs/merchant/retrieve-order-list
