@@ -6,7 +6,7 @@ class Client:
         self._secret_key = secret_key
         self._environment = environment
         self._api_version = "2023-09-01"
-        self._base_url = f"https://{environment}.revolut.com/api/"
+        self._base_url = f"https://{environment.value}.revolut.com/api/"
         self._headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",

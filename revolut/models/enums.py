@@ -1,14 +1,14 @@
 # Credits to ChatGPT for making a lot of the enums here
-from enum import StrEnum
+from enum import Enum
 
 
-class Environment(StrEnum):
+class Environment(str, Enum):
     """The API Environments that are available."""
     PRODUCTION = "merchant"
     SANDBOX = "sandbox-merchant"
 
 
-class OrderType(StrEnum):
+class OrderType(str, Enum):
     """The type of order object."""
     PAYMENT = "payment"
     PAYMENT_REQUEST = "payment_request"
@@ -26,24 +26,24 @@ class OrderType(StrEnum):
         return None
 
 
-class EnforceChallenge(StrEnum):
+class EnforceChallenge(str, Enum):
     """The enforce challenge mode."""
     AUTOMATIC = "automatic"
     FORCED = "forced"
 
 
-class EnvironmentType(StrEnum):
+class EnvironmentType(str, Enum):
     """Type of environment where a payment was made."""
     BROWSER = "browser"
 
 
-class Initiator(StrEnum):
+class Initiator(str, Enum):
     """Indicates who is allowed to initiate the payment."""
     CUSTOMER = "customer"
     MERCHANT = "merchant"
 
 
-class CaptureMode(StrEnum):
+class CaptureMode(str, Enum):
     """The capture mode of an order."""
     AUTOMATIC = "automatic"
     MANUAL = "manual"
@@ -57,33 +57,33 @@ class CaptureMode(StrEnum):
         return None
 
 
-class AuthenticationChallengeType(StrEnum):
+class AuthenticationChallengeType(str, Enum):
     """Type of the authentication challenge the payment triggers."""
     THREE_DS = "three_ds"
     THREE_DS_FINGERPRINT = "three_ds_fingerprint"
 
 
-class CardBrand(StrEnum):
+class CardBrand(str, Enum):
     """The credit card brands available."""
     VISA = "visa"
     MASTERCARD = "mastercard"
 
 
-class Funding(StrEnum):
+class Funding(str, Enum):
     """The type of card funding."""
     CREDIT = "credit"
     DEBIT = "debit"
     PREPAID = "prepaid"
 
 
-class PaymentType(StrEnum):
+class PaymentType(str, Enum):
     """The type of payment method used to pay for an order."""
     CARD = "card"
     REVOLUT_PAY_CARD = "revolut_pay_card"
     REVOLUT_PAY_ACCOUNT = "revolut_pay_account"
 
 
-class VerificationResult(StrEnum):
+class VerificationResult(str, Enum):
     """The result of a verification."""
     MATCH = "match"
     NOT_MATCH = "not_match"
@@ -93,19 +93,19 @@ class VerificationResult(StrEnum):
     NOT_PROCESSED = "not_processed"
 
 
-class FeeType(StrEnum):
+class FeeType(str, Enum):
     """The type of order fee."""
     FX = "fx"
     ACQUIRING = "acquiring"
 
 
-class RiskLevel(StrEnum):
+class RiskLevel(str, Enum):
     """The risk level of a card."""
     LOW = "low"
     HIGH = "high"
 
 
-class State(StrEnum):
+class State(str, Enum):
     """The status of a payment or an order."""
     PENDING = "pending"
     AUTHENTICATION_CHALLENGE = "authentication_challenge"
@@ -140,7 +140,7 @@ class State(StrEnum):
         return None
 
 
-class DeclineReason(StrEnum):
+class DeclineReason(str, Enum):
     """The reason for a failed or declined payment."""
     HIGH_RISK = "high_risk"
     CARDHOLDER_NAME_MISSING = "cardholder_name_missing"
@@ -171,7 +171,7 @@ class DeclineReason(StrEnum):
     TECHNICAL_ERROR = "technical_error"
 
 
-class Currency(StrEnum):
+class Currency(str, Enum):
     """ISO 4217 Currencies
     https://en.wikipedia.org/wiki/ISO_4217
     """
