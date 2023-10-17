@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from .payment_method import PaymentMethod
 from .fee import Fee
@@ -30,4 +30,4 @@ class Payment(BaseModel):
     authentication_challenge: Optional[AuthenticationChallenge] = None
     billing_address: Optional[Address] = None
     risk_level: Optional[RiskLevel] = None
-    fees: Optional[list[Fee]] = None
+    fees: Optional[List[Fee]] = None
